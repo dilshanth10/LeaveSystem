@@ -1,0 +1,69 @@
+.form-back {
+    border-radius: 10px;
+    padding: 40px;
+    padding-bottom: 30px;
+    margin-bottom: 15px;
+    background: #81cbff;
+    background: -webkit-linear-gradient(top, #c7d3ff, #0074d8);
+}
+
+.navbar{
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+
+@media (min-width: 768px){
+    .sidebar.toggled .nav-item .nav-link span {
+        font-size: 10px;
+        display: block;
+    }
+    .sidebar .nav-item .nav-link span {
+        font-size: 14px;
+        display: inline;
+    }
+
+    .sidebar.toggled .nav-item:last-child {
+        padding: 0px;
+    }
+
+    i.fas.fa-fw.fa-tachometer-alt{
+        font-size: 20px;
+    }
+}
+
+.sidebar .nav-item:last-child {
+    margin-top: 15px;
+    margin-bottom: 1rem;
+    padding-left: 15px;
+}
+
+footer.sticky-footer{
+    height: 30px;
+}
+
+footer.sticky-footer .copyright{
+    font-size: 9px;
+}
+
+body{
+    background: -webkit-linear-gradient(top, #0097ff, #d4d7f5);
+}
+
+.white-background{
+    border-radius: 15px;
+    background: white;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+.sidebar{
+    background: #00233c;
+}
+
+.bg-dark {
+    background-color: #001e33 !important;
+}
+
+.card-header{
+    padding-top: 15px;
+}
