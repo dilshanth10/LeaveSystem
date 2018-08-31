@@ -65,9 +65,9 @@
                 cursor: default;
             }
             /*
-                        .white-background{
-                            background: -webkit-linear-gradient(top, #c7d3ff, #676cd7);
-                        }*/
+            .white-background{
+                background: -webkit-linear-gradient(top, #c7d3ff, #676cd7);
+            }*/
 
             .disable-click{
                 pointer-events: none;
@@ -88,7 +88,7 @@
         %>
 
         <c:if test="${sessionScope.roleName=='Manager'}">
-            <% response.sendRedirect("AdminHomeController"); %>
+            <% response.sendRedirect("AdminHomeController");%>
         </c:if>
 
         <!--Header-->
@@ -132,14 +132,14 @@
                                     <div class="col-md-3">
                                         <label for="start_date">Start Date</label>
                                         <div class="input-group date" id="startDate" data-date="" data-date-format="yyyy-mm-dd" data-link-field="startDateText" data-link-format="yyyy-mm-dd">
-                                            <input class="form-control" id="startDateText" name="startDateText" size="16" type="text" value="" readonly>
+                                            <input class="form-control" id="startDateText" name="startDateText" size="16" type="text" value="" style="cursor: pointer;" readonly>
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="end_date">End Date</label>
                                         <div class="input-group date" id="endDate" data-date="" data-date-format="yyyy-mm-dd" data-end-date="1d" data-link-field="endDateText" data-link-format="yyyy-mm-dd">
-                                            <input class="form-control" id="endDateText" name="endDateText" size="16" type="text" value="" readonly>
+                                            <input class="form-control" id="endDateText" name="endDateText" size="16" type="text" value="" style="cursor: pointer;" readonly>
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
@@ -268,8 +268,10 @@
                 var getStartDate = $('#startDate').datetimepicker('getDate', '');
                 var pickEndDate = $('#startDate').datetimepicker('getDate', '');
 
-                if (remainLeaveDays == 1) {
-                    $('#endDate').datetimepicker('setDate', getStartDate);
+                if (remainLeaveDays === 1) {
+                    setTimeout(function () {
+                        $('#endDate').datetimepicker('setDate', pickEndDate);
+                    }, 100);
                 }
                 if (pickEndDate !== null) {
                     pickEndDate.setDate(pickEndDate.getDate() + remainLeaveDays);

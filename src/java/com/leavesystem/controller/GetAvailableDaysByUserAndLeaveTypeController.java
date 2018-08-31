@@ -15,55 +15,56 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name="GetAvailableDaysByUserAndLeaveTypeController", urlPatterns={"/GetAvailableDaysByUserAndLeaveTypeController"})
+@WebServlet(name = "GetAvailableDaysByUserAndLeaveTypeController", urlPatterns = {"/GetAvailableDaysByUserAndLeaveTypeController"})
 public class GetAvailableDaysByUserAndLeaveTypeController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
-        Integer userId = 2;
+            throws ServletException, IOException {
+
+        Object objUserId = request.getSession(false).getAttribute("userId");
+        Integer userId = (Integer) objUserId;
         Integer leaveTypeId = Integer.parseInt(request.getParameter("leaveTypeId"));
-        
+
         AvailableDayDao availableDaysDao = new AvailableDayDao();
         List<AvailableDay> availableDaysList = availableDaysDao.viewAvailableDaysByUserAndLeaveType(userId, leaveTypeId);
-        
+
         response.setContentType("application/json");
         PrintWriter writer = response.getWriter();
-        
+
         JsonObjectBuilder rootbuilder = Json.createObjectBuilder();
-        
+
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         JsonObject leaveJson = null;
-        
-        for(AvailableDay availableDay : availableDaysList){
+
+        for (AvailableDay availableDay : availableDaysList) {
             JsonObjectBuilder leaveBuilder = Json.createObjectBuilder();
-            
+
             leaveJson = leaveBuilder
                     .add("AvailableDays", availableDay.getAvailableDays())
                     .build();
             arrayBuilder.add(leaveJson);
         }
-        
+
         JsonObject root = rootbuilder.add("AvailableDay", arrayBuilder).build();
-        
+
         writer.print(root);
-        
+
         writer.flush();
         writer.close();
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
+            throws ServletException, IOException {
+
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
         }
     }
 

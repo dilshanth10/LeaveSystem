@@ -37,12 +37,13 @@ public class LoginController extends HttpServlet {
         if (!userList.isEmpty()) {
             for (User user : userList) {
                 Integer userRoleId = user.getRoleId();
+                Integer userId = user.getUserId();
                 String userName = user.getUsername();
                 String roleName = user.getRoleName();
                 
-                HttpSession session = request.getSession();
                 request.getSession(true).setAttribute("username", userName);
                 request.getSession(true).setAttribute("roleId", userRoleId);
+                request.getSession(true).setAttribute("userId", userId);
                 request.getSession(true).setAttribute("roleName", roleName);
                 
                 if (userRoleId == 1) {

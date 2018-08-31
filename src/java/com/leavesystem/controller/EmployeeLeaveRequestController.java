@@ -9,8 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,8 +47,11 @@ public class EmployeeLeaveRequestController extends HttpServlet {
 
             Leave leave = new Leave();
             AvailableDay availableDay = new AvailableDay();
-
-            leave.setUserId(2);
+            
+            Object objUserId = request.getSession(false).getAttribute("userId");
+            Integer userId = (Integer)objUserId;
+            
+            leave.setUserId(userId);
             leave.setLeaveTypeId(leaveTypeId);
             leave.setLeaveDays(daysDifference);
             leave.setStartDate(startDateString);

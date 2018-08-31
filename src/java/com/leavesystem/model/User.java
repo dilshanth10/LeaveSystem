@@ -1,7 +1,7 @@
 package com.leavesystem.model;
 
 public class User {
-
+    Integer userId;
     String username;
     String password;
     String email;
@@ -10,6 +10,14 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public void setUsername(String username) {
