@@ -118,7 +118,7 @@
                                 <div class="form-group">
                                     <div class="col-md-3">
                                         <label>Leave Type</label>
-                                        <select class="form-control" id="leaveType" name="leaveType">
+                                        <select class="form-control" id="leaveType" name="leaveType" style="cursor:pointer;">
                                             <option value="" selected disabled>Select Leave Type</option>
                                             <c:forEach items="${leaveTypeListAttribute}" var="leaveTypeList">
                                                 <option value="${leaveTypeList.getLeaveTypeId()}">${leaveTypeList.getLeaveType()}</option>
@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Available Days</label>
-                                        <input class="form-control" id="remainDays" name="remainDays" type="text" value="0" readonly>
+                                        <input class="form-control" id="remainDays" name="remainDays" type="text" value="0" style="cursor:default;" readonly>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="start_date">Start Date</label>
@@ -268,11 +268,6 @@
                 var getStartDate = $('#startDate').datetimepicker('getDate', '');
                 var pickEndDate = $('#startDate').datetimepicker('getDate', '');
 
-                if (remainLeaveDays === 1) {
-                    setTimeout(function () {
-                        $('#endDate').datetimepicker('setDate', pickEndDate);
-                    }, 100);
-                }
                 if (pickEndDate !== null) {
                     pickEndDate.setDate(pickEndDate.getDate() + remainLeaveDays);
                     setTimeout(function () {
@@ -281,6 +276,14 @@
                     var endDateFilter = pickEndDate.getFullYear() + "-" + (pickEndDate.getMonth() + 1) + "-" + (pickEndDate.getDate() - 1);
                     $('#endDate').datetimepicker('setStartDate', getStartDate);
                     $('#endDate').datetimepicker('setEndDate', endDateFilter);
+                } else {
+                    $('#endDate').removeClass("disable-click");
+                }
+
+                if (remainLeaveDays === 1) {
+                    var selectedStartDate = $("#startDateText").val();
+                    $("#endDateText").val(selectedStartDate);
+                    $('#endDate').addClass("disable-click");
                 }
             });
 
@@ -300,14 +303,11 @@
 //            });
 
             $(document).ready(function () {
-                var remainLeaveDays = parseInt($("#remainDays").val());
-                if (remainLeaveDays == 0) {
-                    $('#startDate').addClass("disable-click");
-                } else {
-                    $('#startDate').removeClass("disable-click");
-                }
 
                 $("#leaveType").change(function () {
+                    $('#endDateText').val('');
+//                    $('#endDate').val('').datetimepicker('delete');
+                    $('#endDate').addClass("disable-click");
                     var leaveTypeId = this.value;
                     $.ajax({
                         url: 'GetAvailableDaysByUserAndLeaveTypeController?leaveTypeId=' + leaveTypeId,
@@ -318,6 +318,8 @@
                             $('#remainDays').val(remainDays);
 
                             if (remainDays == 0) {
+                                $('#startDateText').val('');
+                                $('#endDateText').val('');
                                 $('#startDate').addClass("disable-click");
                                 $('#endDate').addClass("disable-click");
                             } else {
