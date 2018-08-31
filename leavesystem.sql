@@ -40,7 +40,7 @@ CREATE TABLE `available_day` (
 
 LOCK TABLES `available_day` WRITE;
 /*!40000 ALTER TABLE `available_day` DISABLE KEYS */;
-INSERT INTO `available_day` VALUES (2,1,4),(2,2,6),(2,3,13);
+INSERT INTO `available_day` VALUES (2,1,9),(2,2,12),(2,3,13);
 /*!40000 ALTER TABLE `available_day` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `leave_detail` (
   CONSTRAINT `fk_leavestatus_leave` FOREIGN KEY (`leave_status_id`) REFERENCES `leave_status` (`leave_status_id`),
   CONSTRAINT `fk_leavetype_leave` FOREIGN KEY (`leave_type_id`) REFERENCES `leave_type` (`leave_type_id`),
   CONSTRAINT `fk_user_leave` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +76,7 @@ CREATE TABLE `leave_detail` (
 
 LOCK TABLES `leave_detail` WRITE;
 /*!40000 ALTER TABLE `leave_detail` DISABLE KEYS */;
-INSERT INTO `leave_detail` VALUES (18,2,3,1,'2018-09-01','2018-09-01','Medical Checkup',2),(19,2,1,2,'2018-09-02','2018-09-03','Wedding',3),(20,2,2,5,'2018-09-12','2018-09-16','Trip with friends',1),(21,2,2,3,'2018-10-10','2018-10-12','Temple Festival',1),(22,2,1,1,'2018-10-31','2018-10-31','Go to the airport to pick up someone',1);
+INSERT INTO `leave_detail` VALUES (46,2,1,3,'2018-09-01','2018-09-03','Wedding',3),(47,2,2,6,'2018-09-05','2018-09-10','Trip',3),(48,2,3,1,'2018-09-20','2018-09-20','Medical Checkup',3),(49,2,1,1,'2018-10-01','2018-10-01','Personal Leave',2),(50,2,1,3,'2018-10-10','2018-10-12','Family Vacation',3),(51,2,3,1,'2018-10-20','2018-10-20','Medical Checkup',1),(52,2,2,2,'2018-10-25','2018-10-26','Birthday Celebration',1);
 /*!40000 ALTER TABLE `leave_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-31 13:41:01
+-- Dump completed on 2018-09-01  4:27:58
