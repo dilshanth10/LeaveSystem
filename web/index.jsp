@@ -21,7 +21,7 @@
     <body>
         <div class="limiter">
             <div class="container-login100" style="background-image: url('Contents/images/bg-01.jpg');">
-                <div class="wrap-login100">
+                <div class="wrap-login100" style="zoom:90%;">
                     <form class="login100-form validate-form" method="post" action="LoginController">
                         <span class="login100-form-logo">
                             <i class="fa fa-user"></i>
@@ -41,12 +41,14 @@
                             <span class="focus-input100" data-placeholder="&#xf191;"></span>
                         </div>
 
-                        <div class="contact100-form-checkbox">
+                        <div class="contact100-form-checkbox" style="padding-bottom: 20px;">
                             <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
                             <label class="label-checkbox100" for="ckb1">
                                 Remember me
                             </label>
                         </div>
+                        
+                        <div align="center" style="padding-bottom: 25px;color: red;">${errorMessage}</div>
 
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn">
@@ -54,7 +56,7 @@
                             </button>
                         </div>
 
-                        <div class="text-center p-t-90">
+                        <div class="text-center p-t-55">
                             <a class="txt1" href="#">
                                 Forgot Password?
                             </a>

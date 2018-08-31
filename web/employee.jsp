@@ -28,9 +28,65 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link href="Contents/dashboard/date-picker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
         <link href="Contents/dashboard/css/dashboard.css" rel="stylesheet" media="screen">
+
+        <style>
+
+            input.error {
+                border-color: red !important;
+                border: 1px solid red;
+            }
+
+            label.error {
+                font-weight: normal;
+                color: red;
+            }
+
+            textarea.error {
+                border-color: red !important;
+                border: 1px solid red;
+            }
+
+            select.error {
+                border-color: red !important;
+                border: 1px solid red;
+            }
+
+            .errorId{
+                color: red !important;
+                font-size: 11px !important;
+                font-style: normal !important;
+            }
+
+            .errorBorder{
+                border: 1px solid red !important;
+            }
+
+            .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+                cursor: default;
+            }
+
+            .white-background{
+                background: -webkit-linear-gradient(top, #c7d3ff, #676cd7);
+            }
+
+            .disable-click{
+                pointer-events: none;
+            }
+        </style>
     </head>
 
     <body id="page-top">
+
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+            response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+            response.setDateHeader("Expires", 0);
+
+            if ((session.getAttribute("username") == null)) {
+                response.sendRedirect("index.jsp");
+            }
+        %>
+
         <!--Header-->
         <%@ include file="Shared/header.jsp" %>
         <!--Header-->
@@ -52,14 +108,14 @@
                     </ol>
 
                     <div class="col-md-12">
-                        <form action="EmployeeLeaveRequestController" method="post" class="form-horizontal"  role="form">
+                        <form action="EmployeeLeaveRequestController" id="leaveRequestForm" method="post" class="form-horizontal"  role="form">
 
                             <div class="col-md-12 form-back">
                                 <div class="form-group">
                                     <div class="col-md-3">
                                         <label>Leave Type</label>
                                         <select class="form-control" id="leaveType" name="leaveType">
-                                            <option value="" selected>Select Leave Type</option>
+                                            <option value="" selected disabled>Select Leave Type</option>
                                             <c:forEach items="${leaveTypeListAttribute}" var="leaveTypeList">
                                                 <option value="${leaveTypeList.getLeaveTypeId()}">${leaveTypeList.getLeaveType()}</option>
                                             </c:forEach>
@@ -67,7 +123,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Available Days</label>
-                                        <input class="form-control" id="remainDays" name="remainDays" type="text" value="" readonly>
+                                        <input class="form-control" id="remainDays" name="remainDays" type="text" value="0" readonly>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="start_date">Start Date</label>
@@ -124,12 +180,12 @@
                                                 <td>${leaveList.getEndDate()}</td>
                                                 <td>${leaveList.getReason()}</td>
                                                 <td>${leaveList.getLeaveStatus()}</td>
-                                            <!--
-                                            <td style="text-align:center;">
-                                                <a href="#" class="view" data-toggle="modal">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </td>-->
+                                                <!--
+                                                <td style="text-align:center;">
+                                                    <a href="#" class="view" data-toggle="modal">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </td>-->
                                             </tr>
                                         </c:forEach>
                                     </tbody>
@@ -141,14 +197,9 @@
                 </div>
                 <!-- /.container-fluid -->
 
-                <!-- Sticky Footer -->
-                <footer class="sticky-footer">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright © Samuel Gnanam IT Center 2018</span>
-                        </div>
-                    </div>
-                </footer>
+                <!--Footer-->
+                <%@ include file="Shared/footer.jsp" %>
+                <!--Footer-->
 
             </div>
             <!-- /.content-wrapper -->
@@ -180,7 +231,7 @@
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
         <script type="text/javascript" src="Contents/dashboard/date-picker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
         <script type="text/javascript">
 
             var date = new Date();
@@ -213,6 +264,9 @@
                 var getStartDate = $('#startDate').datetimepicker('getDate', '');
                 var pickEndDate = $('#startDate').datetimepicker('getDate', '');
 
+                if (remainLeaveDays == 1) {
+                    $('#endDate').datetimepicker('setDate', getStartDate);
+                }
                 if (pickEndDate !== null) {
                     pickEndDate.setDate(pickEndDate.getDate() + remainLeaveDays);
                     setTimeout(function () {
@@ -240,6 +294,12 @@
 //            });
 
             $(document).ready(function () {
+                var remainLeaveDays = parseInt($("#remainDays").val());
+                if (remainLeaveDays == 0) {
+                    $('#startDate').addClass("disable-click");
+                } else {
+                    $('#startDate').removeClass("disable-click");
+                }
 
                 $("#leaveType").change(function () {
                     var leaveTypeId = this.value;
@@ -248,8 +308,16 @@
 
                         complete: function (response) {
                             var json = JSON.parse(response.responseText);
+                            var remainDays = json.AvailableDay[0].AvailableDays;
+                            $('#remainDays').val(remainDays);
 
-                            $('#remainDays').val(json.AvailableDay[0].AvailableDays);
+                            if (remainDays == 0) {
+                                $('#startDate').addClass("disable-click");
+                                $('#endDate').addClass("disable-click");
+                            } else {
+                                $('#startDate').removeClass("disable-click");
+                                $('#endDate').removeClass("disable-click");
+                            }
                         },
 
                         error: function () {
@@ -258,6 +326,28 @@
                     });
                     return false;
                 });
+
+                $("#leaveRequestForm").validate({
+                    rules: {
+                        "leaveType": {
+                            required: true
+                        },
+                        "remainDays": {
+                            required: true
+                        },
+                        "startDateText": {
+                            required: true
+                        },
+                        "endDateText": {
+                            required: true
+                        },
+                        "reason": {
+                            required: true
+                        }
+                    },
+                    errorPlacement: function (error, element) { }
+                });
+
             });
 
         </script>

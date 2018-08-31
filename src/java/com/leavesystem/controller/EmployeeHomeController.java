@@ -37,7 +37,18 @@ public class EmployeeHomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        LeaveDao leaveDao = new LeaveDao();
+        List<Leave> leaveList = new ArrayList<>();
         
+        LeaveTypeDao leaveTypeDao = new LeaveTypeDao();
+        List<LeaveType> leaveTypeList = new ArrayList<>();
+        
+        leaveList = leaveDao.viewLeave();
+        leaveTypeList = leaveTypeDao.viewLeaveType();
+        
+        request.setAttribute("leaveTypeListAttribute", leaveTypeList);
+        request.setAttribute("leaveListAttribute", leaveList);
+        request.getRequestDispatcher("employee.jsp").forward(request, response);
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

@@ -30,7 +30,13 @@ public class AdminHomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        LeaveDao leaveDao = new LeaveDao();
+        List<Leave> leaveList = new ArrayList<>();
         
+        leaveList = leaveDao.viewLeave();
+       
+        request.setAttribute("leaveListAttribute", leaveList);
+        request.getRequestDispatcher("admin.jsp").forward(request, response);
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

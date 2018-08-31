@@ -27,6 +27,7 @@ public class UserDao implements IUserDao {
             user.setPassword(rs.getString("password"));
             user.setEmail(rs.getString("email"));
             user.setRoleId(rs.getInt("role_id"));
+            user.setRoleName(rs.getString("role_name"));
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,7 +56,7 @@ public class UserDao implements IUserDao {
 
     @Override
     public List checkUser(String username, String password) {
-        sql = "SELECT * FROM user WHERE username='" + username + "' and password='" + password + "'";
+        sql = "SELECT * FROM user JOIN role ON user.role_id=role.role_id WHERE username='" + username + "' and password='" + password + "'";
         List<User> userList = new ArrayList<>();
         try {
             con = DbConnection.connect();

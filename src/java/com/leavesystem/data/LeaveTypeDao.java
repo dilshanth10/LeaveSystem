@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LeaveTypeDao {
+public class LeaveTypeDao implements ILeaveType{
 
     Connection con = null;
     Statement stmt = null;
@@ -19,7 +19,8 @@ public class LeaveTypeDao {
     ResultSet rs = null;
     String sql;
 
-    private LeaveType setLeaveType() {
+    @Override
+    public LeaveType setLeaveType() {
         LeaveType leaveType = new LeaveType();
         try {
             leaveType.setLeaveTypeId(rs.getInt("leave_type_id"));
@@ -31,6 +32,7 @@ public class LeaveTypeDao {
         return leaveType;
     }
 
+    @Override
     public List viewLeaveType() {
         sql = "SELECT * FROM leave_type";
 

@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Employee | Dashboard</title>
+        <title>Manager | Dashboard</title>
         <link rel="icon" href="Contents/images/icons/favicon.ico" />
         <!-- Bootstrap core CSS-->
         <link href="Contents/dashboard/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,6 +33,20 @@
     </head>
 
     <body id="page-top">
+
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+            response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+            response.setDateHeader("Expires", 0);
+
+            if ((session.getAttribute("username") == null)) {
+                response.sendRedirect("index.jsp");
+            }
+            if ((session.getAttribute("username") == "admin")) {
+                response.sendRedirect("employee.jsp");
+            }
+        %>
+
         <!--Header-->
         <%@ include file="Shared/header.jsp" %>
         <!--Header-->
@@ -42,7 +56,6 @@
             <!--Sidebar-->
 
             <div id="content-wrapper">
-
                 <div class="container-fluid">
 
                     <!-- Breadcrumbs-->
@@ -56,7 +69,7 @@
                     <!-- DataTables Example -->
                     <div class="col-md-12">
                         <div class="card-header white-background">
-                            <i class="fas fa-table" style="padding-right:15px;"></i>
+                            <i class="fas fa-cogs" style="padding-right:15px;"></i>
                             Leave Approval
                         </div>
                         <div class="card-body white-background">
@@ -88,10 +101,10 @@
                                                     <c:if test="${leaveList.getLeaveStatusId() == 1}">
                                                         <div id="approvalButtons">
                                                             <a href="AdminLeaveUpdateController?leaveStatusId=2&leaveId=${leaveList.getLeaveId()}" class="edit" style="padding-right:15px;">
-                                                                <i class="fa fa-check" data-toggle="tooltip" id="acceptBtn" value="" title="Accept"></i>
+                                                                <i class="fa fa-check" data-toggle="tooltip" id="acceptBtn" title="Accept"></i>
                                                             </a>
                                                             <a href="AdminLeaveUpdateController?leaveStatusId=3&leaveId=${leaveList.getLeaveId()}" class="delete">
-                                                                <i class="fa fa-times" data-toggle="tooltip" id="deleteBtn" value="" title="Reject"></i>
+                                                                <i class="fa fa-times" data-toggle="tooltip" id="deleteBtn" title="Reject"></i>
                                                             </a>
                                                         </div>
                                                     </c:if>
@@ -107,14 +120,9 @@
                 </div>
                 <!-- /.container-fluid -->
 
-                <!-- Sticky Footer -->
-                <footer class="sticky-footer">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright © Samuel Gnanam IT Center 2018</span>
-                        </div>
-                    </div>
-                </footer>
+                <!--Footer-->
+                <%@ include file="Shared/footer.jsp" %>
+                <!--Footer-->
 
             </div>
             <!-- /.content-wrapper -->

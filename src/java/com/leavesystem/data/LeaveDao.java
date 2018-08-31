@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LeaveDao {
+public class LeaveDao implements ILeave {
 
     Connection con = null;
     Statement stmt = null;
@@ -20,7 +20,8 @@ public class LeaveDao {
     ResultSet rs = null;
     String sql;
 
-    private Leave setLeave() {
+    @Override
+    public Leave setLeave() {
         Leave leave = new Leave();
         try {
             leave.setLeaveId(rs.getInt("leave_id"));
@@ -40,6 +41,7 @@ public class LeaveDao {
         return leave;
     }
 
+    @Override
     public void requestLeave(Leave leave, AvailableDay availableDay) {
         sql = "INSERT INTO leave_detail (user_id, leave_type_id, leave_days, start_date, end_date, reason, leave_status_id) "
                 + "VALUES (?,?,?,?,?,?,?)";
@@ -69,6 +71,7 @@ public class LeaveDao {
         }
     }
 
+    @Override
     public List viewLeave() {
         sql = "SELECT ld.leave_id, user.user_id, user.username, lt.leave_type_id, lt.leave_type, "
                 + "ld.leave_days, ld.start_date, ld.end_date, ld.reason, ls.leave_status_id, ls.leave_status "
@@ -94,6 +97,7 @@ public class LeaveDao {
         return leaveList;
     }
 
+    @Override
     public List viewLeaveByLeaveTypeId(Integer leaveTypeId) {
         sql = "SELECT * FROM leave_detail WHERE leave_type_id=" + leaveTypeId;
 
@@ -114,6 +118,7 @@ public class LeaveDao {
         return leaveList;
     }
     
+    @Override
     public void updateLeaveStatus(Integer leaveStatusId, Integer leaveId){
         sql = "UPDATE leave_detail SET leave_status_id=? WHERE leave_id=?";
         

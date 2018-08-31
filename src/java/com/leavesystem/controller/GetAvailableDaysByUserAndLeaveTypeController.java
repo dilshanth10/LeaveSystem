@@ -2,7 +2,6 @@ package com.leavesystem.controller;
 
 import com.leavesystem.data.AvailableDayDao;
 import com.leavesystem.model.AvailableDay;
-import com.leavesystem.model.Leave;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;

@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
@@ -35,15 +36,27 @@ public class LoginController extends HttpServlet {
 
         if (!userList.isEmpty()) {
             for (User user : userList) {
-                int userRoleId = user.getRoleId();
+                Integer userRoleId = user.getRoleId();
+                String userName = user.getUsername();
+                String roleName = user.getRoleName();
+                
+                HttpSession session = request.getSession();
+                request.getSession(true).setAttribute("username", userName);
+                request.getSession(true).setAttribute("roleId", userRoleId);
+                request.getSession(true).setAttribute("roleName", roleName);
+                
 
                 if (userRoleId == 1) {
+                    request.getRequestDispatcher("AdminHomeController").forward(request, response);
                     System.out.println("This is admin");
                 } else if (userRoleId == 2) {
+                    request.getRequestDispatcher("EmployeeHomeController").forward(request, response);
                     System.out.println("This is employee");
                 }
             }
         } else {
+            request.setAttribute("errorMessage", "Incorrect Username or Password");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
             System.out.println("Unknown user");
         }
 
