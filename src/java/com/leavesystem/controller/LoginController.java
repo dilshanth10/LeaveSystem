@@ -45,7 +45,6 @@ public class LoginController extends HttpServlet {
                 request.getSession(true).setAttribute("roleId", userRoleId);
                 request.getSession(true).setAttribute("roleName", roleName);
                 
-
                 if (userRoleId == 1) {
                     request.getRequestDispatcher("AdminHomeController").forward(request, response);
                     System.out.println("This is admin");

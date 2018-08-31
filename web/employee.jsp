@@ -64,10 +64,10 @@
             .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
                 cursor: default;
             }
-
-            .white-background{
-                background: -webkit-linear-gradient(top, #c7d3ff, #676cd7);
-            }
+            /*
+                        .white-background{
+                            background: -webkit-linear-gradient(top, #c7d3ff, #676cd7);
+                        }*/
 
             .disable-click{
                 pointer-events: none;
@@ -86,6 +86,10 @@
                 response.sendRedirect("index.jsp");
             }
         %>
+
+        <c:if test="${sessionScope.roleName=='Manager'}">
+            <% response.sendRedirect("AdminHomeController"); %>
+        </c:if>
 
         <!--Header-->
         <%@ include file="Shared/header.jsp" %>

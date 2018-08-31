@@ -24,7 +24,7 @@ public class AdminHomeController extends HttpServlet {
         leaveList = leaveDao.viewLeave();
        
         request.setAttribute("leaveListAttribute", leaveList);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/").forward(request, response);
     } 
 
     @Override
@@ -36,7 +36,7 @@ public class AdminHomeController extends HttpServlet {
         leaveList = leaveDao.viewLeave();
        
         request.setAttribute("leaveListAttribute", leaveList);
-        request.getRequestDispatcher("admin.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/").forward(request, response);
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

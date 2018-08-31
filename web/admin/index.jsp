@@ -12,22 +12,22 @@
         <meta name="author" content="">
 
         <title>Manager | Dashboard</title>
-        <link rel="icon" href="Contents/images/icons/favicon.ico" />
+        <link rel="icon" href="./Contents/images/icons/favicon.ico" />
         <!-- Bootstrap core CSS-->
-        <link href="Contents/dashboard/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./Contents/dashboard/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom fonts for this template-->
-        <link href="Contents/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="./Contents/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
         <!-- Page level plugin CSS-->
-        <link href="Contents/dashboard/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="./Contents/dashboard/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template-->
-        <link href="Contents/dashboard/css/sb-admin.min.css" rel="stylesheet">
+        <link href="./Contents/dashboard/css/sb-admin.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link href="Contents/dashboard/date-picker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-        <link href="Contents/dashboard/css/dashboard.css" rel="stylesheet" media="screen">
+        <link href="./Contents/dashboard/date-picker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+        <link href="./Contents/dashboard/css/dashboard.css" rel="stylesheet" media="screen">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
@@ -46,13 +46,15 @@
                 response.sendRedirect("employee.jsp");
             }
         %>
-
+        <c:if test="${sessionScope.roleName=='Employee'}">
+            <% response.sendRedirect("EmployeeHomeController");%>
+        </c:if>
         <!--Header-->
-        <%@ include file="Shared/header.jsp" %>
+        <%@ include file="/Shared/header.jsp" %>
         <!--Header-->
         <div id="wrapper">
             <!-- Sidebar -->
-            <%@ include file="Shared/sidebar.jsp" %>
+            <%@ include file="/Shared/sidebar.jsp" %>
             <!--Sidebar-->
 
             <div id="content-wrapper">
@@ -121,7 +123,7 @@
                 <!-- /.container-fluid -->
 
                 <!--Footer-->
-                <%@ include file="Shared/footer.jsp" %>
+                <%@ include file="/Shared/footer.jsp" %>
                 <!--Footer-->
 
             </div>
@@ -136,24 +138,24 @@
         </a>
 
         <!-- Bootstrap core JavaScript-->
-        <script src="Contents/dashboard/vendor/jquery/jquery.min.js"></script>
-        <script src="Contents/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="./Contents/dashboard/vendor/jquery/jquery.min.js"></script>
+        <script src="./Contents/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
         <!-- Page level plugin JavaScript-->
-        <script src="Contents/dashboard/vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="Contents/dashboard/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="./Contents/dashboard/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="./Contents/dashboard/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
         <!-- Custom scripts for all pages-->
-        <script src="Contents/dashboard/js/sb-admin.min.js"></script>
+        <script src="./Contents/dashboard/js/sb-admin.min.js"></script>
 
         <!-- Demo scripts for this page-->
-        <script src="Contents/dashboard/js/demo/datatables-demo.js"></script>
+        <script src="./Contents/dashboard/js/demo/datatables-demo.js"></script>
 
 
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-        <script type="text/javascript" src="Contents/dashboard/date-picker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="./Contents/dashboard/date-picker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 
         <script type="text/javascript">
 
