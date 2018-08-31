@@ -30,6 +30,12 @@
         <link href="./Contents/dashboard/css/dashboard.css" rel="stylesheet" media="screen">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <style>
+            th.sorting, th.sorting_asc, th.sorting_desc {
+                font-size: 11px;
+            }
+        </style>
     </head>
 
     <body id="page-top">
@@ -41,9 +47,6 @@
 
             if ((session.getAttribute("username") == null)) {
                 response.sendRedirect("index.jsp");
-            }
-            if ((session.getAttribute("username") == "admin")) {
-                response.sendRedirect("employee.jsp");
             }
         %>
         <c:if test="${sessionScope.roleName=='Employee'}">
@@ -79,36 +82,42 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Applied By</th>
                                             <th>Leave Type</th>
                                             <th>Leave Days</th>
+                                            <th>Remaining Days</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Reason</th>
                                             <th>Leave Status</th>
+                                            <th class="no-sort" style="border-right:none;"></th>
                                             <th class="no-sort"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${leaveListAttribute}" var="leaveList">
                                             <tr>
+                                                <td>${leaveList.getUsername()}</td>
                                                 <td>${leaveList.getLeaveType()}</td>
                                                 <td>${leaveList.getLeaveDays()}</td>
+                                                <td>${leaveList.getRemainDays()}</td>
                                                 <td>${leaveList.getStartDate()}</td>
                                                 <td>${leaveList.getEndDate()}</td>
                                                 <td>${leaveList.getReason()}</td>
                                                 <td>${leaveList.getLeaveStatus()}</td>
 
-                                                <td style="text-align:center;">
-
+                                                <td align="center" style="border-right:none;">
                                                     <c:if test="${leaveList.getLeaveStatusId() == 1}">
-                                                        <div id="approvalButtons">
-                                                            <a href="AdminLeaveUpdateController?leaveStatusId=2&leaveId=${leaveList.getLeaveId()}" class="edit" style="padding-right:15px;">
-                                                                <i class="fa fa-check" data-toggle="tooltip" id="acceptBtn" title="Accept"></i>
-                                                            </a>
-                                                            <a href="AdminLeaveUpdateController?leaveStatusId=3&leaveId=${leaveList.getLeaveId()}" class="delete">
-                                                                <i class="fa fa-times" data-toggle="tooltip" id="deleteBtn" title="Reject"></i>
-                                                            </a>
-                                                        </div>
+                                                        <a href="AdminLeaveUpdateController?leaveStatusId=2&leaveId=${leaveList.getLeaveId()}" class="edit" style="padding-right:15px;">
+                                                            <i class="fa fa-check" data-toggle="tooltip" id="acceptBtn" title="Accept"></i>
+                                                        </a>
+                                                    </c:if>
+                                                </td>
+                                                <td align="left" style="padding-right:10px;">
+                                                    <c:if test="${leaveList.getLeaveStatusId() == 1}">
+                                                        <a href="AdminLeaveUpdateController?leaveStatusId=3&leaveId=${leaveList.getLeaveId()}&leaveDays=${leaveList.getLeaveDays()}&leaveTypeId=${leaveList.getLeaveTypeId()}&userId=${leaveList.getUserId()}" class="delete">
+                                                            <i class="fa fa-times" data-toggle="tooltip" id="deleteBtn" title="Reject"></i>
+                                                        </a>
                                                     </c:if>
                                                 </td>
                                             </tr>

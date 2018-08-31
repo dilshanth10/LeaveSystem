@@ -48,7 +48,7 @@
                             </label>
                         </div>
                         
-                        <div align="center" style="padding-bottom: 25px;color: red;">${errorMessage}</div>
+                        <div align="center" style="padding-bottom: 25px;color: #ff9898;">${errorMessage}</div>
 
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn">

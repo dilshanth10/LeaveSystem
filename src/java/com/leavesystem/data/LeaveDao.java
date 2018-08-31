@@ -30,6 +30,7 @@ public class LeaveDao implements ILeave {
             leave.setLeaveTypeId(rs.getInt("leave_type_id"));
             leave.setLeaveType(rs.getString("leave_type"));
             leave.setLeaveDays(rs.getFloat("leave_days"));
+            leave.setRemainDays(rs.getFloat("available_days"));
             leave.setStartDate(rs.getString("start_date"));
             leave.setEndDate(rs.getString("end_date"));
             leave.setReason(rs.getString("reason"));
@@ -74,11 +75,14 @@ public class LeaveDao implements ILeave {
     @Override
     public List viewLeave() {
         sql = "SELECT ld.leave_id, user.user_id, user.username, lt.leave_type_id, lt.leave_type, "
-                + "ld.leave_days, ld.start_date, ld.end_date, ld.reason, ls.leave_status_id, ls.leave_status "
+                + "ad.available_days, ld.leave_days, ld.start_date, ld.end_date, ld.reason, ls.leave_status_id, ls.leave_status "
                 + "FROM leave_detail ld "
                 + "JOIN leave_type lt ON ld.leave_type_id=lt.leave_type_id "
                 + "JOIN leave_status ls ON ls.leave_status_id=ld.leave_status_id "
-                + "JOIN user ON user.user_id=ld.user_id ORDER BY start_date DESC";
+                + "JOIN user ON user.user_id=ld.user_id "
+                + "JOIN available_day ad ON ld.user_id=ad.user_id "
+                + "AND ld.leave_type_id=ad.leave_type_id "
+                + "ORDER BY start_date DESC";
 
         List<Leave> leaveList = new ArrayList<>();
 

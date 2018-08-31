@@ -5,6 +5,7 @@ public class Leave {
     Integer userId;
     Integer leaveTypeId;
     float leaveDays;
+    float remainDays;
     String startDate;
     String endDate;
     String reason;
@@ -44,6 +45,14 @@ public class Leave {
 
     public void setLeaveDays(float leaveDays) {
         this.leaveDays = leaveDays;
+    }
+
+    public float getRemainDays() {
+        return remainDays;
+    }
+
+    public void setRemainDays(float remainDays) {
+        this.remainDays = remainDays;
     }
 
     public String getStartDate() {

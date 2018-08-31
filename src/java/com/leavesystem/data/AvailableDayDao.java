@@ -2,6 +2,7 @@ package com.leavesystem.data;
 
 import com.leavesystem.model.AvailableDay;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +15,7 @@ public class AvailableDayDao implements IAvailableDay {
 
     Connection con = null;
     Statement stmt = null;
+    PreparedStatement pstmt = null;
 
     @Override
     public List viewAvailableDaysByUserAndLeaveType(Integer userId, Integer leaveTypeId) {
@@ -36,5 +38,19 @@ public class AvailableDayDao implements IAvailableDay {
             Logger.getLogger(AvailableDayDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return availableDayList;
+    }
+
+    @Override
+    public void updateAvailableDays(Double availableDays, Integer userId, Integer leaveTypeId) {
+        String sql = "UPDATE available_day SET available_days=" + availableDays + " WHERE user_id=" + userId + " AND leave_type_id=" + leaveTypeId;
+
+        try {
+            con = DbConnection.connect();
+            pstmt = con.prepareStatement(sql);
+            pstmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AvailableDayDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
